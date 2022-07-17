@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "backspace",
+      "email": "backspace@onion.sh",
+      "bidang": "hacking"
+    },
+    {
+      "name": "Tes",
+      "email": "Email",
+      "bidang": "Bidang",
+      "id": 2
+    }
+  ]
+}
