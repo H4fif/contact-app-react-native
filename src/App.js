@@ -6,6 +6,7 @@ import SampleComponent from './pages//SampleComponent';
 import StylingComponent from './pages/StylingComponent';
 import CallAPIVanilla from './pages/CallAPIVanilla';
 import CallAPIAxios from './pages/CallAPIAxios';
+import LocalAPI from './pages/LocalAPI';
 
 const App = () => {
   const [isShow, setIsShow] = useState(true);
@@ -24,7 +25,8 @@ const App = () => {
         {/* {isShow && <FlexBox />} */}
         {/* <Position /> */}
         {/* <CallAPIVanilla /> */}
-        <CallAPIAxios />
+        {/* <CallAPIAxios /> */}
+        <LocalAPI />
       </ScrollView>
     </View>
   );
