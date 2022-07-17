@@ -1,8 +1,16 @@
-import { View, StyleSheet, Text, TextInput, Button, Image } from 'react-native';
-import React, { useState } from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  Button,
+  Image,
+  FlatList,
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Item = () => {
+const Item = ({ user: { name, email, bidang } }) => {
   return (
     <View style={styles.itemContainer}>
       <Image
@@ -12,9 +20,9 @@ const Item = () => {
         style={styles.avatar}
       />
       <View style={styles.desc}>
-        <Text style={styles.descName}>Nama Lengkap</Text>
-        <Text style={styles.descEmail}>Email</Text>
-        <Text style={styles.descBidang}>Bidang</Text>
+        <Text style={styles.descName}>{name}</Text>
+        <Text style={styles.descEmail}>{email}</Text>
+        <Text style={styles.descBidang}>{bidang}</Text>
       </View>
       <Text style={styles.delete}>X</Text>
     </View>
@@ -22,9 +30,10 @@ const Item = () => {
 };
 
 const Index = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [bidang, setBidang] = useState();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [bidang, setBidang] = useState('');
+  const [users, setUsers] = useState([]);
 
   const submit = () => {
     const data = {
@@ -42,6 +51,13 @@ const Index = () => {
       })
       .catch(error => console.log('post error: ', error));
   };
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3004/users')
+      .then(response => setUsers(response.data))
+      .catch(error => console.log('get error: ', error));
+  }, [name]);
 
   return (
     <View style={styles.container}>
@@ -71,9 +87,11 @@ const Index = () => {
 
       <Button title="Simpan" onPress={submit} />
       <View style={styles.line} />
-      <Item />
-      <Item />
-      <Item />
+
+      <FlatList
+        data={users}
+        renderItem={({ item }) => <Item key={item.id} user={item} />}
+      />
     </View>
   );
 };
