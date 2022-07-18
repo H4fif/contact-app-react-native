@@ -8,6 +8,7 @@ import CallAPIVanilla from './pages/CallAPIVanilla';
 import CallAPIAxios from './pages/CallAPIAxios';
 import LocalAPI from './pages/LocalAPI';
 import PropsDinamis from './pages/PropsDinamis';
+import StateDinamis from './pages/StateDinamis';
 
 const App = () => {
   const [isShow, setIsShow] = useState(true);
@@ -29,7 +30,8 @@ const App = () => {
           {/* <CallAPIVanilla /> */}
           {/* <CallAPIAxios /> */}
           {/* <LocalAPI /> */}
-          <PropsDinamis />
+          {/* <PropsDinamis /> */}
+          <StateDinamis />
         </ScrollView>
       </View>
     </SafeAreaView>
