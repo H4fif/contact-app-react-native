@@ -6,6 +6,7 @@ import {
   Button,
   Image,
   FlatList,
+  SafeAreaView,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -60,39 +61,41 @@ const Index = () => {
   }, [name]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.textTitle}>Local API (JSON Server)</Text>
-      <Text style={styles.label}>Masukkan Anggota Kabayan Coding</Text>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <Text style={styles.textTitle}>Local API (JSON Server)</Text>
+        <Text style={styles.label}>Masukkan Anggota Kabayan Coding</Text>
 
-      <TextInput
-        placeholder="Nama Lengkap"
-        style={styles.input}
-        value={name}
-        onChangeText={value => setName(value)}
-      />
+        <TextInput
+          placeholder="Nama Lengkap"
+          style={styles.input}
+          value={name}
+          onChangeText={value => setName(value)}
+        />
 
-      <TextInput
-        placeholder="Email"
-        style={styles.input}
-        value={email}
-        onChangeText={value => setEmail(value)}
-      />
+        <TextInput
+          placeholder="Email"
+          style={styles.input}
+          value={email}
+          onChangeText={value => setEmail(value)}
+        />
 
-      <TextInput
-        placeholder="Bidang"
-        style={styles.input}
-        value={bidang}
-        onChangeText={value => setBidang(value)}
-      />
+        <TextInput
+          placeholder="Bidang"
+          style={styles.input}
+          value={bidang}
+          onChangeText={value => setBidang(value)}
+        />
 
-      <Button title="Simpan" onPress={submit} />
-      <View style={styles.line} />
+        <Button title="Simpan" onPress={submit} />
+        <View style={styles.line} />
 
-      <FlatList
-        data={users}
-        renderItem={({ item }) => <Item key={item.id} user={item} />}
-      />
-    </View>
+        <FlatList
+          data={users}
+          renderItem={({ item }) => <Item key={item.id} user={item} />}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -100,7 +103,6 @@ export default Index;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     padding: 20,
   },
   textTitle: {
