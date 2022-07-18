@@ -13,7 +13,9 @@ const Story = props => {
 const Index = () => {
   return (
     <View>
-      <Text>Materi Component Dinamis dengan Props</Text>
+      <Text style={styles.textTitle}>
+        Materi Component Dinamis dengan Props
+      </Text>
 
       <ScrollView horizontal>
         <View style={styles.storyContainer}>
@@ -64,4 +66,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 20,
   },
+  textTitle: { textAlign: 'center', fontSize: 20 },
 });
