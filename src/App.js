@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, SafeAreaView } from 'react-native';
 import FlexBox from './pages/FlexBox';
 import Position from './pages/Position';
 import SampleComponent from './pages//SampleComponent';
@@ -7,6 +7,7 @@ import StylingComponent from './pages/StylingComponent';
 import CallAPIVanilla from './pages/CallAPIVanilla';
 import CallAPIAxios from './pages/CallAPIAxios';
 import LocalAPI from './pages/LocalAPI';
+import PropsDinamis from './pages/PropsDinamis';
 
 const App = () => {
   const [isShow, setIsShow] = useState(true);
@@ -18,17 +19,20 @@ const App = () => {
   // }, []);
 
   return (
-    <View>
-      <ScrollView>
-        {/* <StylingComponent />
-        <SampleComponent /> */}
-        {/* {isShow && <FlexBox />} */}
-        {/* <Position /> */}
-        {/* <CallAPIVanilla /> */}
-        {/* <CallAPIAxios /> */}
-        <LocalAPI />
-      </ScrollView>
-    </View>
+    <SafeAreaView>
+      <View>
+        <ScrollView>
+          {/* <StylingComponent />
+          <SampleComponent /> */}
+          {/* {isShow && <FlexBox />} */}
+          {/* <Position /> */}
+          {/* <CallAPIVanilla /> */}
+          {/* <CallAPIAxios /> */}
+          {/* <LocalAPI /> */}
+          <PropsDinamis />
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
 
