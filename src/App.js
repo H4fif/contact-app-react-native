@@ -30,10 +30,10 @@ const App = () => {
           {/* <Position /> */}
           {/* <CallAPIVanilla /> */}
           {/* <CallAPIAxios /> */}
-          {/* <LocalAPI /> */}
+          <LocalAPI />
           {/* <PropsDinamis /> */}
           {/* <StateDinamis /> */}
-          <Communication />
+          {/* <Communication /> */}
         </ScrollView>
       </View>
     </SafeAreaView>
