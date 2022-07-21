@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView, SafeAreaView } from 'react-native';
 import FlexBox from './pages/FlexBox';
 import Position from './pages/Position';
@@ -9,6 +9,7 @@ import CallAPIAxios from './pages/CallAPIAxios';
 import LocalAPI from './pages/LocalAPI';
 import PropsDinamis from './pages/PropsDinamis';
 import StateDinamis from './pages/StateDinamis';
+import Communication from './pages/Communication';
 
 const App = () => {
   const [isShow, setIsShow] = useState(true);
@@ -23,15 +24,16 @@ const App = () => {
     <SafeAreaView>
       <View>
         <ScrollView>
-          {/* <StylingComponent />
-          <SampleComponent /> */}
+          {/* <StylingComponent /> */}
+          {/* <SampleComponent /> */}
           {/* {isShow && <FlexBox />} */}
           {/* <Position /> */}
           {/* <CallAPIVanilla /> */}
           {/* <CallAPIAxios /> */}
           {/* <LocalAPI /> */}
           {/* <PropsDinamis /> */}
-          <StateDinamis />
+          {/* <StateDinamis /> */}
+          <Communication />
         </ScrollView>
       </View>
     </SafeAreaView>
