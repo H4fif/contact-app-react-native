@@ -15,9 +15,7 @@ const Item = ({ user: { name, email, bidang } }) => {
   return (
     <View style={styles.itemContainer}>
       <Image
-        source={{
-          uri: 'https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_1280.png',
-        }}
+        source={{ uri: 'https://picsum.photos/200/300' }} // use dynamic image generator
         style={styles.avatar}
       />
       <View style={styles.desc}>
@@ -49,16 +47,20 @@ const Index = () => {
         setName('');
         setEmail('');
         setBidang('');
+        getData();
       })
       .catch(error => console.log('post error: ', error));
   };
 
-  useEffect(() => {
+  const getData = () =>
     axios
       .get('http://localhost:3004/users')
       .then(response => setUsers(response.data))
       .catch(error => console.log('get error: ', error));
-  }, [name]);
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <SafeAreaView>
@@ -90,10 +92,9 @@ const Index = () => {
         <Button title="Simpan" onPress={submit} />
         <View style={styles.line} />
 
-        <FlatList
-          data={users}
-          renderItem={({ item }) => <Item key={item.id} user={item} />}
-        />
+        {users.map(item => (
+          <Item key={item.id} user={item} />
+        ))}
       </View>
     </SafeAreaView>
   );
