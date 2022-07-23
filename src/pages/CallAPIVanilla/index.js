@@ -50,7 +50,9 @@ const Index = () => {
       <Text style={styles.textTitle}>Call API dengan VanillaJS</Text>
       <Button title="GET DATA" onPress={getData} />
       <Text>Response GET DATA</Text>
-      <Image source={{ uri: dataGet.avatar }} style={styles.avatar} />
+      {dataGet?.avatar && (
+        <Image source={{ uri: dataGet.avatar }} style={styles.avatar} />
+      )}
       <Text>{`${dataGet.first_name} ${dataGet.last_name}`}</Text>
       <View style={styles.line} />
       <Button title="POST DATA" onPress={postData} />
