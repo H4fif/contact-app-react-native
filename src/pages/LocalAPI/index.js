@@ -12,6 +12,8 @@ import {
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const url = 'http://localhost:3004/';
+
 const Item = ({
   user: { id, name, email, bidang },
   handleEdit,
@@ -70,11 +72,11 @@ const Index = () => {
   };
 
   const toggleAlert = (title, message, buttons = []) =>
-    Alert.alert(title, message, buttons);
+    Alert.alert(title, message, buttons.length ? buttons : [{ text: 'OK' }]);
 
   const handleSave = () => {
     axios
-      .post('http://localhost:3004/users', form)
+      .post(`${url}users`, form)
       .then(response => {
         handleResetForm();
         getData();
@@ -88,7 +90,7 @@ const Index = () => {
 
   const handleUpdate = () => {
     axios
-      .put(`http://localhost:3004/users/${form?.id}`, form)
+      .put(`${url}users/${form?.id}`, form)
       .then(response => {
         handleResetForm();
         getData();
@@ -101,16 +103,14 @@ const Index = () => {
   };
 
   const handleEdit = data => {
-    console.log('toggle edit data: ', data);
     setForm(data);
     setIsEdit(true);
   };
 
   const handleDelete = id =>
     axios
-      .delete(`http://localhost:3004/users/${id}`)
+      .delete(`${url}users/${id}`)
       .then(response => {
-        // handleResetForm();
         getData();
         toggleAlert('Sukses', 'Data berhasil dihapus');
       })
@@ -121,15 +121,16 @@ const Index = () => {
 
   const getData = () =>
     axios
-      .get('http://localhost:3004/users')
+      .get(`${url}users`)
       .then(response => setUsers(response.data))
-      .catch(error => console.log('get error: ', error));
+      .catch(error => {
+        console.log('get error: ', error);
+        toggleAlert('Gagal Memuat Data');
+      });
 
   useEffect(() => {
     getData();
   }, []);
-
-  console.log('form => ', form);
 
   return (
     <SafeAreaView>
