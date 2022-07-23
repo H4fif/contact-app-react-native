@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "753313620506",
+    "project_id": "bwa-react-native-10be9",
+    "storage_bucket": "bwa-react-native-10be9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753313620506:android:d3c3c3010cf736bffa67a3",
+        "android_client_info": {
+          "package_name": "com.bwareactnative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753313620506-qfh9qds56ecf32l3onfsilj0dgua6nrq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPflfCht15Gux8cJE4JSvYPK6ZlbF-RY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753313620506-qfh9qds56ecf32l3onfsilj0dgua6nrq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

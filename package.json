@@ -10,9 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/push-notification-ios": "^1.10.1",
     "axios": "^0.27.2",
     "react": "18.0.0",
-    "react-native": "0.69.1"
+    "react-native": "0.69.1",
+    "react-native-push-notification": "^8.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
