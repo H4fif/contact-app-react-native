@@ -8,11 +8,15 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const url = 'http://localhost:3004/';
+const androidUrl = 'http://10.0.2.2:3004/';
+const iosUrl = 'http://localhost:3004/';
+const url = Platform.OS === 'ios' ? iosUrl : androidUrl;
 
 const Item = ({
   user: { id, name, email, bidang },
@@ -171,15 +175,17 @@ const Index = () => {
 
         <View style={styles.line} />
 
-        {users.map(item => (
-          <Item
-            key={item.id}
-            user={item}
-            handleEdit={handleEdit}
-            toggleAlert={toggleAlert}
-            handleDelete={handleDelete}
-          />
-        ))}
+        <ScrollView style={styles.itemWrapper}>
+          {users.map(item => (
+            <Item
+              key={item.id}
+              user={item}
+              handleEdit={handleEdit}
+              toggleAlert={toggleAlert}
+              handleDelete={handleDelete}
+            />
+          ))}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -220,4 +226,12 @@ const styles = StyleSheet.create({
   descBidang: { fontSize: 12, marginTop: 8 },
   delete: { fontSize: 20, fontWeight: 'bold', color: 'red' },
   buttonContainer: { flexDirection: 'row', justifyContent: 'space-around' },
+  itemWrapper: {
+    flexGrow: 1,
+    maxHeight: 300,
+    padding: 10,
+    borderRadius: 20,
+    borderColor: '#000',
+    borderWidth: 1,
+  },
 });
