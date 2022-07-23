@@ -5,52 +5,119 @@ import {
   TextInput,
   Button,
   Image,
-  FlatList,
   SafeAreaView,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Item = ({ user: { name, email, bidang } }) => {
+const Item = ({
+  user: { id, name, email, bidang },
+  handleEdit,
+  toggleAlert,
+  handleDelete,
+}) => {
   return (
-    <View style={styles.itemContainer}>
-      <Image
-        source={{ uri: 'https://picsum.photos/200/300' }} // use dynamic image generator
-        style={styles.avatar}
-      />
+    <View key={id} style={styles.itemContainer}>
+      <TouchableOpacity onPress={() => handleEdit({ id, name, email, bidang })}>
+        <Image
+          source={{ uri: 'https://picsum.photos/200/300' }} // use dynamic image generator
+          style={styles.avatar}
+        />
+      </TouchableOpacity>
+
       <View style={styles.desc}>
         <Text style={styles.descName}>{name}</Text>
         <Text style={styles.descEmail}>{email}</Text>
         <Text style={styles.descBidang}>{bidang}</Text>
       </View>
-      <Text style={styles.delete}>X</Text>
+
+      <Text
+        style={styles.delete}
+        onPress={() =>
+          toggleAlert(
+            'Anda Yakin?',
+            'Data yang dihapus tidak dapat dikembalikan.',
+            [
+              {
+                text: 'Batal',
+              },
+              {
+                text: 'Ya, hapus',
+                onPress: () => handleDelete(id),
+              },
+            ],
+          )
+        }>
+        X
+      </Text>
     </View>
   );
 };
 
 const Index = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [bidang, setBidang] = useState('');
+  const [form, setForm] = useState();
   const [users, setUsers] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
 
-  const submit = () => {
-    const data = {
-      name,
-      email,
-      bidang,
-    };
+  const handleInputChange = (field, value) =>
+    setForm({ ...form, [field]: value });
 
-    axios
-      .post('http://localhost:3004/users', data)
-      .then(response => {
-        setName('');
-        setEmail('');
-        setBidang('');
-        getData();
-      })
-      .catch(error => console.log('post error: ', error));
+  const handleResetForm = () => {
+    setIsEdit(false);
+    setForm();
   };
+
+  const toggleAlert = (title, message, buttons = []) =>
+    Alert.alert(title, message, buttons);
+
+  const handleSave = () => {
+    axios
+      .post('http://localhost:3004/users', form)
+      .then(response => {
+        handleResetForm();
+        getData();
+        toggleAlert('Sukses', 'Data berhasil disimpan');
+      })
+      .catch(error => {
+        console.log('post error: ', error);
+        toggleAlert('Gagal Simpan', 'Pastikan Anda memiliki koneksi internet');
+      });
+  };
+
+  const handleUpdate = () => {
+    axios
+      .put(`http://localhost:3004/users/${form?.id}`, form)
+      .then(response => {
+        handleResetForm();
+        getData();
+        toggleAlert('Sukses', 'Perubahan berhasil disimpan');
+      })
+      .catch(error => {
+        console.log('update error: ', error);
+        toggleAlert('Gagal Ubah', 'Pastikan Anda memiliki koneksi internet');
+      });
+  };
+
+  const handleEdit = data => {
+    console.log('toggle edit data: ', data);
+    setForm(data);
+    setIsEdit(true);
+  };
+
+  const handleDelete = id =>
+    axios
+      .delete(`http://localhost:3004/users/${id}`)
+      .then(response => {
+        // handleResetForm();
+        getData();
+        toggleAlert('Sukses', 'Data berhasil dihapus');
+      })
+      .catch(error => {
+        console.log('delete error: ', error);
+        toggleAlert('Gagal Hapus', 'Pastikan Anda memiliki koneksi internet');
+      });
 
   const getData = () =>
     axios
@@ -62,6 +129,8 @@ const Index = () => {
     getData();
   }, []);
 
+  console.log('form => ', form);
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -71,29 +140,44 @@ const Index = () => {
         <TextInput
           placeholder="Nama Lengkap"
           style={styles.input}
-          value={name}
-          onChangeText={value => setName(value)}
+          value={form?.name}
+          onChangeText={value => handleInputChange('name', value)}
         />
 
         <TextInput
           placeholder="Email"
           style={styles.input}
-          value={email}
-          onChangeText={value => setEmail(value)}
+          value={form?.email}
+          onChangeText={value => handleInputChange('email', value)}
         />
 
         <TextInput
           placeholder="Bidang"
           style={styles.input}
-          value={bidang}
-          onChangeText={value => setBidang(value)}
+          value={form?.bidang}
+          onChangeText={value => handleInputChange('bidang', value)}
         />
 
-        <Button title="Simpan" onPress={submit} />
+        {form && (
+          <View style={styles.buttonContainer}>
+            <Button title="Batalkan" onPress={handleResetForm} />
+            <Button
+              title={isEdit ? 'Ubah' : 'Simpan'}
+              onPress={isEdit ? handleUpdate : handleSave}
+            />
+          </View>
+        )}
+
         <View style={styles.line} />
 
         {users.map(item => (
-          <Item key={item.id} user={item} />
+          <Item
+            key={item.id}
+            user={item}
+            handleEdit={handleEdit}
+            toggleAlert={toggleAlert}
+            handleDelete={handleDelete}
+          />
         ))}
       </View>
     </SafeAreaView>
@@ -134,4 +218,5 @@ const styles = StyleSheet.create({
   descEmail: { fontSize: 16 },
   descBidang: { fontSize: 12, marginTop: 8 },
   delete: { fontSize: 20, fontWeight: 'bold', color: 'red' },
+  buttonContainer: { flexDirection: 'row', justifyContent: 'space-around' },
 });
