@@ -22,20 +22,17 @@ const App = () => {
 
   return (
     <SafeAreaView>
-      <View>
-        <ScrollView>
-          {/* <StylingComponent /> */}
-          {/* <SampleComponent /> */}
-          {/* {isShow && <FlexBox />} */}
-          {/* <Position /> */}
-          {/* <CallAPIVanilla /> */}
-          {/* <CallAPIAxios /> */}
-          <LocalAPI />
-          {/* <PropsDinamis /> */}
-          {/* <StateDinamis /> */}
-          {/* <Communication /> */}
-        </ScrollView>
-      </View>
+      {/* <StylingComponent /> */}
+      {/* <SampleComponent /> */}
+      {/* {isShow && <FlexBox />} */}
+      {/* <Position /> */}
+      {/* <CallAPIVanilla /> */}
+      {/* <CallAPIAxios /> */}
+      <LocalAPI />
+      {/* <PropsDinamis /> */}
+      {/* <StateDinamis /> */}
+      {/* <Communication /> */}
+      {/* <PushNotif /> */}
     </SafeAreaView>
   );
 };
