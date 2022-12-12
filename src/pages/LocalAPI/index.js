@@ -14,8 +14,9 @@ import {
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const androidUrl = 'http://10.0.2.2:3004/';
-const iosUrl = 'http://localhost:3004/';
+const androidUrl = 'http://10.0.2.2:3000/';  // for emulator
+// const androidUrl = 'http://localhost:3000/';  //for real device
+const iosUrl = 'http://localhost:3000/';
 const url = Platform.OS === 'ios' ? iosUrl : androidUrl;
 
 const Item = ({
@@ -79,6 +80,8 @@ const Index = () => {
     Alert.alert(title, message, buttons.length ? buttons : [{ text: 'OK' }]);
 
   const handleSave = () => {
+    console.log('saving');
+
     axios
       .post(`${url}users`, form)
       .then(response => {
@@ -123,7 +126,8 @@ const Index = () => {
         toggleAlert('Gagal Hapus', 'Pastikan Anda memiliki koneksi internet');
       });
 
-  const getData = () =>
+  const getData = () => {
+    console.log('getting data from api');
     axios
       .get(`${url}users`)
       .then(response => setUsers(response.data))
@@ -131,6 +135,7 @@ const Index = () => {
         console.log('get error: ', error);
         toggleAlert('Gagal Memuat Data');
       });
+  };
 
   useEffect(() => {
     getData();
